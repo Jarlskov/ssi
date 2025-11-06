@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block meta_tags %}
+    <title>{{ post.title }} | {{ site.siteTitle }}</title>
+    <meta name="description" content="{{ post.description }}">
+    <meta name="author" content="{{ site.author }}">
+    <link rel="canonical" href="{{ post.url }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ post.url }}">
+    <meta property="og:title" content="{{ post.title }}">
+    <meta property="og:description" content="{{ post.description }}">
+    <meta property="og:image" content="{{ post.image }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ post.url }}">
+    <meta name="twitter:title" content="{{ post.title }}">
+    <meta name="twitter:description" content="{{ post.description }}">
+    <meta name="twitter:image" content="{{ post.image }}">
+{% endblock meta_tags %}
+
+{% block content %}
+    <article>
+        <h1>{{ post.title }}</h1>
+        <p><small>Published on {{ post.date|date("Y-m-d") }} by {{ site.author }}</small></p>
+        <div>{{ post.content|raw }}</div>
+    </article>
+
+    <footer>
+        {% if post.tags is not empty %}
+            <p>
+                Tags:
+                {% for tag in post.tags %}
+                    <a href="/tags/{{ tag|url_encode(true) }}.html">#{{ tag }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+    </footer>
+
+{% if prev_post or next_post %}
+    <nav class="post-navigation">
+        {% if prev_post %}
+            <div class="previous">
+                <a href="/{{ prev_post.slug }}.html">&laquo; Previous: {{ prev_post.title }}</a>
+            </div>
+        {% endif %}
+        {% if next_post %}
+            <div class="next">
+                <a href="/{{ next_post.slug }}.html">Next: {{ next_post.title }} &raquo;</a>
+            </div>
+        {% endif %}
+    </nav>
+{% endif %}
+{% endblock content %}
