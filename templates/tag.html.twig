@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block meta_tags %}
+    <title>Posts tagged with "{{ tag_name }}" | {{ site.siteTitle }}</title>
+    <meta name="description" content="All blog posts tagged with {{ tag_name }} on {{ site.siteTitle }}">
+    <meta property="og:title" content="Posts tagged with \"{{ tag_name }}\"">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.baseUrl }}/tags/{{ tag_name|url_encode(true) }}.html">
+{% endblock meta_tags %}
+
+{% block content %}
+    <h1>Posts tagged with "#{{ tag_name }}"</h1>
+    {% if posts is empty %}
+        <p>No posts found with this tag.</p>
+    {% else %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <h3><a href="/{{ post.slug }}.html">{{ post.title }}</a></h3>
+                    <p><small>Published on {{ post.date|date("Y-m-d") }} by {{ site.author }}</small></p>
+                    <p>{{ post.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p><a href="/tags.html">View all tags</a></p>
+{% endblock content %}

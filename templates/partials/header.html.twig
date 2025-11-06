@@ -1,0 +1,9 @@
+<header>
+    <nav>
+        <a href="/">Home</a>
+        {% for page in navigation_pages %}
+            <a href="/{{ page.slug }}.html">{{ page.title }}</a>
+        {% endfor %}
+        <a href="/tags.html">Tags</a>
+    </nav>
+</header>

@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block meta_tags %}
+    <title>All Tags | {{ site.siteTitle }}</title>
+    <meta name="description" content="Browse all tags on {{ site.siteTitle }}">
+    <meta property="og:title" content="All Tags">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.baseUrl }}/tags.html">
+{% endblock meta_tags %}
+
+{% block content %}
+    <h1>All Tags</h1>
+    {% if all_tags is empty %}
+        <p>No tags found yet.</p>
+    {% else %}
+        <ul>
+            {% for tag in all_tags %}
+                <li>
+                    <a href="/tags/{{ tag.slug }}.html">#{{ tag.name }}</a>
+                    <span>({{ tag.post_count }} posts)</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}
